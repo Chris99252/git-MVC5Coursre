@@ -4,17 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MVC5Course.Models;
+using System.Data.Entity.Validation;
 
 namespace MVC5Course.Controllers
 {
     
     public class CRUDController : Controller
     {
+        FabricsEntities db = new FabricsEntities();
         
-        // GET: CRUD
+        // GET: CRUD 
         public ActionResult Index()
         {
-            var db = new FabricsEntities();
             var data = db.Product.Where(p => p.ProductName.StartsWith("C") && p.Price.HasValue && p.Price >= 5 && p.Price <= 10);
             //var data = from p in db.Product where p.ProductName.StartsWith("C") && p.Price.HasValue && p.Price >= 5 && p.Price <= 10 select p;
             
@@ -24,7 +25,11 @@ namespace MVC5Course.Controllers
         // GET: CRUD/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var data = db.Product.FirstOrDefault(p => p.ProductId == id);
+            //var data = db.Product.Find(id);
+            //var data = db.Product.Single(p => p.ProductId == id);
+            //var data = db.Product.SingleOrDefault(p => p.ProductId == id);
+            return View(data);
         }
 
         // GET: CRUD/Create
@@ -39,11 +44,20 @@ namespace MVC5Course.Controllers
         {
             try
             {
+                Product prod = new Product();
+                prod.ProductName = collection["ProductName"];
+                prod.Price = Convert.ToDecimal(collection["Price"]);
+                prod.Active = true;
+                prod.Stock = Convert.ToDecimal(collection["Stock"]);
+
+                db.Product.Add(prod);
+                db.SaveChanges();
+                          
                 // TODO: Add insert logic here
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (DbEntityValidationException ex)
             {
                 return View();
             }
