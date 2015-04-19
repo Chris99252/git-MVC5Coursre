@@ -39,6 +39,7 @@
         </td>
         <td>
             @*<a href="/Clients/Details/@item.Client.ClientId">@item.Client.FirstName</a>*@
+
             @Html.ActionLink(item.Client.FirstName, "Details", "Clients", new { id = item.Client.ClientId },null)
         </td>
         <td>
