@@ -78,8 +78,16 @@ namespace MVC5Course.Controllers
             }
             catch (DbEntityValidationException ex)
             {
-                
-                throw ex;
+                //throw ex;
+                var allErrors = new List<string>();
+                foreach (DbEntityValidationResult re in ex.EntityValidationErrors)
+                {
+                    foreach (DbValidationError err in re.ValidationErrors)
+                    {
+                        allErrors.Add(err.ErrorMessage);
+                    }
+                }
+                ViewBag.Errors = allErrors;
             }
             return RedirectToAction("Index");
         }

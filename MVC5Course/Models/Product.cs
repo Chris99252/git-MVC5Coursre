@@ -11,30 +11,18 @@ namespace MVC5Course.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class Product
     {
         public Product()
         {
             this.OrderLine = new HashSet<OrderLine>();
-        }     
-
-        
+        }
+    
         public int ProductId { get; set; }
-        
-        //[Required(ErrorMessage = "產品名稱必填")] 未使用多國語系
-
-        [Required(ErrorMessageResourceType = (typeof(Resources.ProductsResurce)),ErrorMessageResourceName = "ProductsNameRequired")]
-        [StringLength(1000, ErrorMessageResourceType = (typeof(Resources.ProductsResurce)), ErrorMessageResourceName = "ProductsNameMaxLength")]
         public string ProductName { get; set; }
-
-        [Required]
         public Nullable<decimal> Price { get; set; }
-
         public Nullable<bool> Active { get; set; }
-
-        [Required]
         public Nullable<decimal> Stock { get; set; }
     
         public virtual ICollection<OrderLine> OrderLine { get; set; }
