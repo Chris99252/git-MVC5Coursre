@@ -63,6 +63,27 @@ namespace MVC5Course.Controllers
             }
         }
 
+        public ActionResult BatchUpdate()
+        {
+            var data = db.Product.Where(p => p.ProductName.StartsWith("C"));
+
+            foreach (var item in data)
+            {
+                item.Price = item.Price * 2;
+            }
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                
+                throw ex;
+            }
+            return RedirectToAction("Index");
+        }
+
         // GET: CRUD/Edit/5
         public ActionResult Edit(int id)
         {
@@ -87,8 +108,22 @@ namespace MVC5Course.Controllers
 
         // GET: CRUD/Delete/5
         public ActionResult Delete(int id)
-        {
-            return View();
+        {          
+
+            var data = db.Client.Find(id);
+
+            foreach (var item in data.Order.ToList())
+            {
+                db.OrderLine.RemoveRange(item.OrderLine);
+            }
+
+            db.Order.RemoveRange(data.Order.ToList());
+
+            db.Client.Remove(data);
+            
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Clients");
         }
 
         // POST: CRUD/Delete/5

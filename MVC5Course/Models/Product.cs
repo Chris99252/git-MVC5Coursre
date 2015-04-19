@@ -26,7 +26,7 @@ namespace MVC5Course.Models
         //[Required(ErrorMessage = "產品名稱必填")] 未使用多國語系
 
         [Required(ErrorMessageResourceType = (typeof(Resources.ProductsResurce)),ErrorMessageResourceName = "ProductsNameRequired")]
-        [StringLength(10, ErrorMessageResourceType = (typeof(Resources.ProductsResurce)), ErrorMessageResourceName = "ProductsNameMaxLength")]
+        [StringLength(1000, ErrorMessageResourceType = (typeof(Resources.ProductsResurce)), ErrorMessageResourceName = "ProductsNameMaxLength")]
         public string ProductName { get; set; }
 
         [Required]
