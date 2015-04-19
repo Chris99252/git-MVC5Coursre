@@ -31,14 +31,23 @@
         <td>
             @Html.DisplayFor(modelItem => item.OrderDate)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderTotal)
-        </td>
+        @if (item.OrderTotal > 10000)
+        {
+            <td>
+                <span class="text-danger">@item.OrderTotal</span>
+            </td>
+        }
+
+        else
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderTotal)
+            </td>
+        }
         <td>
             @Html.DisplayFor(modelItem => item.OrderStatus)
         </td>
         <td>
-
             @*<a href="/Clients/Details/@item.Client.ClientId">@item.Client.FirstName</a>*@
 
             @Html.ActionLink(item.Client.FirstName, "Details", "Clients", new { id = item.Client.ClientId },null)
