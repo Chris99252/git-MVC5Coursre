@@ -15,9 +15,9 @@ namespace MVC5Course.Controllers
         public ActionResult Index()
         {
             var db = new FabricsEntities();
-            var data = db.Product.Where(p => p.ProductName.StartsWith("C") & (p.Price >= 5 | p.Price <= 10));
-            //var data = from p in db.Product where p.ProductName.StartsWith("C") & (p.Price >= 5 | p.Price <= 10) select p;
-
+            var data = db.Product.Where(p => p.ProductName.StartsWith("C") && p.Price.HasValue && p.Price >= 5 && p.Price <= 10);
+            //var data = from p in db.Product where p.ProductName.StartsWith("C") && p.Price.HasValue && p.Price >= 5 && p.Price <= 10 select p;
+            
             return View(data);
         }
 
