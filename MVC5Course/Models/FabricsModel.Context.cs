@@ -45,5 +45,31 @@ namespace MVC5Course.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Fabrics_Result>("usp_Fabrics", createClientsParameter, createOrdersParameter);
         }
+    
+        public virtual ObjectResult<Product> QueryProduct(string keyword, Nullable<int> limit)
+        {
+            var keywordParameter = keyword != null ?
+                new ObjectParameter("Keyword", keyword) :
+                new ObjectParameter("Keyword", typeof(string));
+    
+            var limitParameter = limit.HasValue ?
+                new ObjectParameter("Limit", limit) :
+                new ObjectParameter("Limit", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Product>("QueryProduct", keywordParameter, limitParameter);
+        }
+    
+        public virtual ObjectResult<Product> QueryProduct(string keyword, Nullable<int> limit, MergeOption mergeOption)
+        {
+            var keywordParameter = keyword != null ?
+                new ObjectParameter("Keyword", keyword) :
+                new ObjectParameter("Keyword", typeof(string));
+    
+            var limitParameter = limit.HasValue ?
+                new ObjectParameter("Limit", limit) :
+                new ObjectParameter("Limit", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Product>("QueryProduct", mergeOption, keywordParameter, limitParameter);
+        }
     }
 }

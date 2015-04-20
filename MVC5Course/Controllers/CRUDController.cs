@@ -14,10 +14,23 @@ namespace MVC5Course.Controllers
         FabricsEntities db = new FabricsEntities();
         
         // GET: CRUD 
-        public ActionResult Index()
+        public ActionResult Index(string keyword,int limit = 10)
         {
-            var data = db.Product.Where(p => p.ProductName.StartsWith("C") && p.Price.HasValue && p.Price >= 5 && p.Price <= 10);
+            //var data = db.Product.AsQueryable();
+            
+            //if (!String.IsNullOrEmpty(keyword))
+            //{
+            //    data = data.Where(p => p.ProductName.StartsWith(keyword));
+            //}
+
+            //data = data.Take(limit);
+
+            //var data = db.Product.Where(p => p.ProductName.StartsWith(keyword) && p.Price.HasValue && p.Price >= 5 && p.Price <= 10).Take(limit);
+            
             //var data = from p in db.Product where p.ProductName.StartsWith("C") && p.Price.HasValue && p.Price >= 5 && p.Price <= 10 select p;
+            
+            //var data = db.Database.SqlQuery<Product>("SELECT TOP " + limit + " * FROM dbo.Product WHERE ProductName like @p0", keyword + "%").AsQueryable();
+            var data = db.QueryProduct(keyword, limit);
             
             return View(data);
         }

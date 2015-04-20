@@ -113,6 +113,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="QueryProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Keyword" Type="nvarchar" Mode="In" />
+          <Parameter Name="Limit" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_Fabrics" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CreateClients" Type="int" Mode="In" />
           <Parameter Name="CreateOrders" Type="int" Mode="In" />
@@ -286,10 +290,21 @@
             <Parameter Name="CreateClients" Mode="In" Type="Int32" />
             <Parameter Name="CreateOrders" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="QueryProduct" EntitySet="Product" ReturnType="Collection(FabricsModel.Product)">
+            <Parameter Name="Keyword" Mode="In" Type="String" />
+            <Parameter Name="Limit" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Fabrics_Result">
           <Property Type="String" Name="Table" Nullable="false" MaxLength="10" />
           <Property Type="Int32" Name="Count" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="QueryProduct_Result">
+          <Property Type="Int32" Name="ProductId" Nullable="false" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="80" />
+          <Property Type="Decimal" Name="Price" Nullable="true" Precision="10" />
+          <Property Type="Boolean" Name="Active" Nullable="true" />
+          <Property Type="Decimal" Name="Stock" Nullable="true" Precision="18" Scale="3" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -368,6 +383,8 @@
                 <ScalarProperty Name="Count" ColumnName="Count" />
               </ComplexTypeMapping>
             </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="QueryProduct" FunctionName="FabricsModel.Store.QueryProduct">
           </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
