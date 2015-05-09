@@ -52,6 +52,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.2.1\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -204,6 +207,7 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginVM.cs" />
+    <Compile Include="Models\LogUtility.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Occupation.cs">
       <DependentUpon>FabricsModel.tt</DependentUpon>
@@ -215,6 +219,9 @@
       <DependentUpon>FabricsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs">
+      <DependentUpon>FabricsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QueryProduct1_Result.cs">
       <DependentUpon>FabricsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\QueryProduct_Result.cs">
@@ -252,6 +259,12 @@
       <DependentUpon>FabricsModel.edmx</DependentUpon>
       <LastGenOutput>FabricsModel.cs</LastGenOutput>
     </Content>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Scripts\jquery-1.11.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.11.2.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
@@ -323,6 +336,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Default\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

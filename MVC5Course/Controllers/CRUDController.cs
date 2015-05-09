@@ -30,6 +30,7 @@ namespace MVC5Course.Controllers
             //var data = from p in db.Product where p.ProductName.StartsWith("C") && p.Price.HasValue && p.Price >= 5 && p.Price <= 10 select p;
             
             //var data = db.Database.SqlQuery<Product>("SELECT TOP " + limit + " * FROM dbo.Product WHERE ProductName like @p0", keyword + "%").AsQueryable();
+            
             var data = db.QueryProduct(keyword, limit);
             
             return View(data);
